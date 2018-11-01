@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2048
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Service", "Service\Service.pyproj", "{64CB03FB-2465-49EC-99B5-77B9ABAF8E16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderingApp", "OrderingApp\OrderingApp.csproj", "{891EEB75-87F1-4769-AE15-22DA8B71B1EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64CB03FB-2465-49EC-99B5-77B9ABAF8E16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64CB03FB-2465-49EC-99B5-77B9ABAF8E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{891EEB75-87F1-4769-AE15-22DA8B71B1EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{891EEB75-87F1-4769-AE15-22DA8B71B1EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{891EEB75-87F1-4769-AE15-22DA8B71B1EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{891EEB75-87F1-4769-AE15-22DA8B71B1EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {292F6F9E-8A90-4FB3-AD7F-ECC883BB36A5}
+	EndGlobalSection
+EndGlobal
