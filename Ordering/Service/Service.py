@@ -149,6 +149,9 @@ def get_catalog():
         products.append(product)
     return jsonify(products), 200
 
-
+# POST 127.0.0.1:5000/Ping
+@app.route("/Ping", methods=['POST'])
+def ping():
+    return jsonify("pong"), 200
 
 app.run(debug=True)

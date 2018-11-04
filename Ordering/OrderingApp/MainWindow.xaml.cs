@@ -17,9 +17,7 @@ using System.Windows.Shapes;
 
 namespace OrderingApp
 {
-    /// <summary>
-    /// Interação lógica para MainWindow.xam
-    /// </summary>
+
     public partial class MainWindow : Window
     {
         static Home home = new Home();
@@ -28,23 +26,21 @@ namespace OrderingApp
         static HomeLoggedIn homeLoggedIn = new HomeLoggedIn();
 
         public static Label Result = new Label
-
         {
             Content = "App Started",
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
             FontSize = 10,
-            Margin = new Thickness(0,0,0,0)
+            Margin = new Thickness(0, 0, 0, 0)
         };
 
-        
-        
-
+        List<Task> tasks = new List<Task>();
         public MainWindow()
         {
             InitializeComponent();
-            grd_Status.Children.Add(Result);
+            
             Result.Content = "Main window initialized";
+
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -89,8 +85,6 @@ namespace OrderingApp
                     break;
             }
         }
-
-
 
         private void MoveCursorMenu(int index)
         {

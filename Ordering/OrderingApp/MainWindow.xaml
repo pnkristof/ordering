@@ -56,7 +56,9 @@
                 </ListViewItem>
             </ListView>
         </Grid>
-        <Grid Name="grd_Status" HorizontalAlignment="Left" Height="30" Margin="200,580,0,0" VerticalAlignment="Top" Width="824" Background="#FFC5CBDE"/>
+        <Grid Name="grd_Status" HorizontalAlignment="Left" Height="30" Margin="200,580,0,0" VerticalAlignment="Top" Width="824" Background="#FFC5CBDE">
+            
+        </Grid>
 
 
     </Grid>

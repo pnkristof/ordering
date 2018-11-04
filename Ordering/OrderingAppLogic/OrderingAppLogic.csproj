@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="ButtonProductPair.cs" />
     <Compile Include="Cart.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="ProductSet.cs" />

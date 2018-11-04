@@ -26,7 +26,7 @@ namespace OrderingAppLogic
                 using (var client = new HttpClient())
                 {
                     response = client.PostAsync(
-                     "http://127.0.0.1:5000/User/CreateUser",
+                     Config.host + Config.port + "/User/CreateUser",
                       new StringContent(user, Encoding.UTF8, "application/json")).Result;
                 }
                 if (response.StatusCode == System.Net.HttpStatusCode.Created)
@@ -53,7 +53,7 @@ namespace OrderingAppLogic
                 using (var client = new HttpClient())
                 {
                     response = client.PostAsync(
-                     "http://127.0.0.1:5000/Security/Login",
+                     Config.host + Config.port + "/Security/Login",
                       new StringContent(user, Encoding.UTF8, "application/json")).Result;
                 }
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)

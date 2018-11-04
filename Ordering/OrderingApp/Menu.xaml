@@ -13,11 +13,11 @@
         <Label Content="Menu"  HorizontalAlignment="Center" Height="44" Margin="284,5,284,0" VerticalAlignment="Top" Width="256" FontSize="28" TextOptions.TextHintingMode="Animated" RenderTransformOrigin="0.5,0.5" HorizontalContentAlignment="Center" Background="{x:Null}"/>
         <Grid HorizontalAlignment="Center" Height="37" Margin="50,70,44,0" VerticalAlignment="Top" Width="706">
             <Button Content="Go" HorizontalAlignment="Left" Margin="590,8,0,0" VerticalAlignment="Top" Width="74" Click="btn_filter_Click"/>
-            <CheckBox Content="Side" HorizontalAlignment="Left" Margin="117,10,0,0" VerticalAlignment="Top" Name="cb_side" BorderBrush="#FF3B587A" Foreground="Black"/>
-            <CheckBox Content="Gyros" HorizontalAlignment="Left" Margin="203,10,0,0" VerticalAlignment="Top" Name="cb_gyros" Foreground="Black" BorderBrush="#FF3B587A"/>
-            <CheckBox Content="Pizza" HorizontalAlignment="Left" Margin="287,10,0,0" VerticalAlignment="Top" Name="cb_pizza" Foreground="Black" BorderBrush="#FF3B587A"/>
-            <CheckBox Content="Drink" HorizontalAlignment="Left" Margin="373,10,0,0" VerticalAlignment="Top" Name="cb_drink" Foreground="Black" BorderBrush="#FF3B587A"/>
-            <CheckBox Content="Dessert" HorizontalAlignment="Left" Margin="464,10,0,0" VerticalAlignment="Top" Name="cb_dessert" Foreground="Black" BorderBrush="#FF3B587A"/>
+            <CheckBox Content="Side" HorizontalAlignment="Left" Margin="117,10,0,0" VerticalContentAlignment="Center" VerticalAlignment="Top" Name="cb_side" BorderBrush="#FF3B587A" Foreground="Black" FontSize="14" IsChecked="True"/>
+            <CheckBox Content="Gyros" HorizontalAlignment="Left" Margin="203,10,0,0" VerticalContentAlignment="Center" VerticalAlignment="Top" Name="cb_gyros" Foreground="Black" BorderBrush="#FF3B587A" FontSize="14" IsChecked="True"/>
+            <CheckBox Content="Pizza" HorizontalAlignment="Left" Margin="287,10,0,0" VerticalContentAlignment="Center" VerticalAlignment="Top" Name="cb_pizza" Foreground="Black" BorderBrush="#FF3B587A" FontSize="14" IsChecked="True"/>
+            <CheckBox Content="Drink" HorizontalAlignment="Left" Margin="373,10,0,0" VerticalContentAlignment="Center" VerticalAlignment="Top" Name="cb_drink" Foreground="Black" BorderBrush="#FF3B587A" FontSize="14" IsChecked="True"/>
+            <CheckBox Content="Dessert" HorizontalAlignment="Left" Margin="464,10,0,0" VerticalContentAlignment="Center" VerticalAlignment="Top" Name="cb_dessert" Foreground="Black" BorderBrush="#FF3B587A" FontSize="14" IsChecked="True"/>
 
 
         </Grid>

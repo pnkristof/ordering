@@ -22,7 +22,7 @@ namespace OrderingAppLogic
                 using (var client = new HttpClient())
                 {
                     response = client.PostAsync(
-                     "http://127.0.0.1:5000/Order/Catalog",
+                     Config.host + Config.port + "/Order/Catalog",
                       new StringContent(Categories, Encoding.UTF8, "application/json")).Result;
                 }
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
