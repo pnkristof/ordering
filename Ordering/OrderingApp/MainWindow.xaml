@@ -5,23 +5,59 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderingApp"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#FF643C3C" WindowStyle="None">
-    <Grid Background="#FFC7C7C7">
-        <Grid Height=" 60 " Width="800" Background="#FF0E006A" VerticalAlignment=" Top">
-            <Button x:Name="btn_close" HorizontalAlignment="Right" Height="60" VerticalAlignment="Top" Width="60" Click="btn_close_Click">
-                <materialDesign:PackIcon Kind="Close" > </materialDesign:PackIcon>
-            </Button>
-                   
+        mc:Ignorable="d" Height="610" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" >
 
+    <Grid Background="#FFEEEEEE" MouseDown="Grid_MouseDown">
+
+
+        <Grid Height=" 60 " Background="#FF2369FF" VerticalAlignment=" Top">
+            <Button x:Name="btn_close" HorizontalAlignment="Right" Height="27" VerticalAlignment="Top" Width="60" Click="btn_close_Click" Background="#FFDA5D5D" BorderThickness="0" ClipToBounds="True">
+                <materialDesign:PackIcon Kind="Close" ></materialDesign:PackIcon>
+            </Button>
         </Grid>
 
-        <Grid Height="450" Width="120" HorizontalAlignment="Left" Background="#FF165478"></Grid>
-        <Button x:Name="btn_register" Content="Register" HorizontalAlignment="Left" Margin="424,280,0,0" VerticalAlignment="Top" Width="75" Background="#FF899BB6" Click="btn_register_Click"/>
-        <TextBox x:Name="txt_email" HorizontalAlignment="Left" Height="26" Margin="487,232,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
-        <TextBox x:Name="txt_name" HorizontalAlignment="Left" Height="26" Margin="282,232,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
-        <Label x:Name="lbl_name" Content="Name" HorizontalAlignment="Left" Height="31" Margin="324,196,0,0" VerticalAlignment="Top" Width="73"/>
-        <Label x:Name="lbl_email" Content="Email" HorizontalAlignment="Left" Height="31" Margin="525,196,0,0" VerticalAlignment="Top" Width="81" Background="#FFE2D3D3"/>
+        <Frame x:Name="MainFrame" Margin="200,44,0,30" Background="#FFE4E4E4"/>
+
+        <Grid Height="450" Width="200" HorizontalAlignment="Left" Background="#FF3DA7E4">
+            <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}" Margin="0,-18,0,0">
+                <Grid x:Name="GridCursor" Margin="0 100 0 0" Background="#FF1C82D6" Width="10" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top"/>
+            </materialDesign:TransitioningContent>
+
+            <ListView x:Name="ListViewMenu" Margin="0,-36,0,-80" Foreground="LightGray" FontFamily="Champagne &amp; Limousines" FontSize="18" SelectedIndex="0" SelectionChanged="ListViewMenu_SelectionChanged" Background="#FF3B587A" BorderThickness="0">
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Home" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Home" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="60" Selected="ListViewItem_Selected">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="FoodForkDrink" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Menu" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Cart" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Cart" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Contacts" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Contact" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="60" >
+                    <StackPanel Orientation="Horizontal" >
+                        <materialDesign:PackIcon Kind="Settings" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Settings" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+            </ListView>
+        </Grid>
+        <Grid Name="grd_Status" HorizontalAlignment="Left" Height="30" Margin="200,580,0,0" VerticalAlignment="Top" Width="824" Background="#FFC5CBDE"/>
+
 
     </Grid>
 </Window>

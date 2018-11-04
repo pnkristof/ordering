@@ -7,6 +7,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Service", "Service\Service.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderingApp", "OrderingApp\OrderingApp.csproj", "{891EEB75-87F1-4769-AE15-22DA8B71B1EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderingAppLogic", "OrderingAppLogic\OrderingAppLogic.csproj", "{A44138F7-5B0A-4327-AA18-5AA51E0194CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{891EEB75-87F1-4769-AE15-22DA8B71B1EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{891EEB75-87F1-4769-AE15-22DA8B71B1EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{891EEB75-87F1-4769-AE15-22DA8B71B1EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A44138F7-5B0A-4327-AA18-5AA51E0194CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A44138F7-5B0A-4327-AA18-5AA51E0194CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A44138F7-5B0A-4327-AA18-5AA51E0194CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A44138F7-5B0A-4327-AA18-5AA51E0194CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

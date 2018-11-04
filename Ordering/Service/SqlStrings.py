@@ -11,3 +11,12 @@ SqlInsertUser = '''INSERT INTO [Ordering].[dbo].[Users] (Name, Email, Permission
 SqlCleanUsers = '''DELETE
   FROM [Ordering].[dbo].[Users]
   WHERE [Permission] = 1'''
+
+SqlGetCatalog = '''
+SELECT [ID]
+      ,[Name]
+      ,[Category]
+      ,[Price]
+      ,[ImgUrl]
+  FROM [Ordering].[dbo].[Products]
+'''

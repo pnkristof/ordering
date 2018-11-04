@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OrderingApp;
+using OrderingAppLogic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,68 +14,93 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Web.Script.Serialization;
-using System.Net;
-using System.IO;
-using System.Net.Http;
-using System.Net.Http.Headers;
 
 namespace OrderingApp
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interação lógica para MainWindow.xam
     /// </summary>
-    /// 
-    public class User
-    {
-        public string Name { get; set; }
-        public string Email { get; set; }
-
-        public User(string name, string email)
-        {
-            Name = name;
-            Email = email;
-        }
-    }
-
     public partial class MainWindow : Window
     {
+        static Home home = new Home();
+        static Menu menu = new Menu();
+        public static CartTotal cartTotal = new CartTotal();
+        static HomeLoggedIn homeLoggedIn = new HomeLoggedIn();
+
+        public static Label Result = new Label
+
+        {
+            Content = "App Started",
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            FontSize = 10,
+            Margin = new Thickness(0,0,0,0)
+        };
+
+        
+        
+
         public MainWindow()
         {
             InitializeComponent();
+            grd_Status.Children.Add(Result);
+            Result.Content = "Main window initialized";
         }
 
-        public void btn_register_Click(object sender, RoutedEventArgs e)
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
-                var user = new JavaScriptSerializer().Serialize(new User(txt_name.Text, txt_email.Text));
-
-            HttpResponseMessage response = null;
             try
             {
-                using (var client = new HttpClient())
-                {
-                    response = client.PostAsync(
-                     "http://127.0.0.1:5000/User/CreateUser",
-                      new StringContent(user, Encoding.UTF8, "application/json")).Result;
-                    if (response.IsSuccessStatusCode)
-                    {
-                        MessageBox.Show("OK");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Error");
-                    }
-                }
+                DragMove();
             }
-            catch (Exception e)
+            catch
             {
-                MessageBox.Show("ERROR");
+                throw new InvalidOperationException();
             }
         }
 
-        public void btn_close_Click(object sender, RoutedEventArgs e)
+        private void btn_close_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow.Result.Content = "Shutting down";
             Application.Current.Shutdown();
+        }
+
+        public void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = ListViewMenu.SelectedIndex;
+            //MoveCursorMenu(index);
+
+            switch (index)
+            {
+                case 0:
+                    if (!Security.loggedIn)
+                        MainFrame.Content = home;
+                    else
+                        MainFrame.Content = homeLoggedIn;
+                    MainWindow.Result.Content = "Clicked on Home";
+                    break;
+                case 1:
+                    MainFrame.Content = menu;
+                    MainWindow.Result.Content = "Clicked on Menu";
+                    break;
+                case 2:
+                    MainFrame.Content = new CartTotal();
+                    MainWindow.Result.Content = "Clicked on Cart";
+                    break;
+            }
+        }
+
+
+
+        private void MoveCursorMenu(int index)
+        {
+            TrainsitionigContentSlide.OnApplyTemplate();
+            GridCursor.Margin = new Thickness(0, (100 + (60 * index)), 0, 0);
+        }
+
+        private void ListViewItem_Selected(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
