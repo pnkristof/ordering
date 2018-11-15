@@ -29,7 +29,7 @@ namespace OrderingApp
         {
             grid_signup.Visibility = Visibility.Hidden;
             grid_signin.Visibility = Visibility.Visible;
-            
+
         }
 
         public void btn_SignUp_Click(object sender, RoutedEventArgs e)
@@ -43,7 +43,7 @@ namespace OrderingApp
             if (OrderingAppLogic.Security.Register(txt_SigUpName.Text, txt_SignUpEmail.Text))
             {
                 MainWindow.Result.Content = "Registered";
-                if(OrderingAppLogic.Security.Login(txt_SignUpEmail.Text, txt_SignUpPw.Text))
+                if (OrderingAppLogic.Security.Login(txt_SignUpEmail.Text, txt_SignUpPw.Text))
                     MainWindow.Result.Content += ", Logged in successfully";
             }
             else
@@ -53,7 +53,9 @@ namespace OrderingApp
         public void btn_Authenticate_Click(object sender, RoutedEventArgs e)
         {
             if (OrderingAppLogic.Security.Login(txt_SigInEmail.Text, txt_SignInPw.Text))
+            {
                 MainWindow.Result.Content = "Logged in successfully";
+            }
             else
                 MainWindow.Result.Content = "Something went wrong, sign in failed";
         }

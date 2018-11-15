@@ -16,7 +16,7 @@
             </Button>
         </Grid>
 
-        <Frame x:Name="MainFrame" Margin="200,44,0,30" Background="#FFE4E4E4"/>
+        <Frame x:Name="MainFrame" Margin="200,44,0,30" Background="#FFE4E4E4" NavigationUIVisibility="Hidden"/>
 
         <Grid Height="450" Width="200" HorizontalAlignment="Left" Background="#FF3DA7E4">
             <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}" Margin="0,-18,0,0">

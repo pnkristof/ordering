@@ -15,49 +15,47 @@ app = Flask(__name__)
 api = Api(app)
 
 
-# POST 127.0.0.1:5000/Security/Login
+# POST /Security/Login
 @app.route("/Security/Login", methods=['POST'])
 def login():
     parser = reqparse.RequestParser()
     parser.add_argument("Email")
     parser.add_argument("Password")
     args = parser.parse_args()
-    if(args["Email"] == "admin@ordering.com"):
-        if(args["Password"] == "admin"):
-            Security.currentUser = "admin@ordering.com"
-            return jsonify("Signed in"), 200
-        else:
-            return jsonify("Wrong password"), 400
-    else:
-        Sql = SqlStrings.SqlSelectUser + "WHERE [Email] = \'" + args["Email"] + "\'"
-        print("execute SQL:\n" + Sql)
-        cursor = connection.execute(Sql)
+    Sql = SqlStrings.SqlSelectUser + "WHERE [Email] = \'" + args["Email"] + "\'"
+    print("\nexecute SQL:\n" + Sql)
+    cursor = connection.execute(Sql)
+    if cursor != None:
         for c in cursor:
-            if c[2] == args["Email"]:
-                Security.currentUser = args["Email"]
-                return jsonify("Signed in"), 200
+            user = {
+                "Id": c[0],
+			    "Name": c[1],
+			    "Email": c[2],
+                "Role": c[3]
+			        }
+        Security.CurrentUser = user
+        return jsonify(user), 200
     return jsonify("User doesn't exist"), 404
 
-# POST 127.0.0.1:5000/Security/Logout
+# POST /Security/Logout
 @app.route("/Security/Logout", methods=['POST'])
 def logout():
     Security.currentUser = None
     return jsonify("Logged out"), 200
 
 
-# POST 127.0.0.1:5000/Admin/GetUser
+# POST /Admin/GetUser
 @app.route("/Admin/GetUser", methods=['POST'])
 def get_user():
-    if(Security.currentUser != "admin@ordering.com"):
-        return "Permission denied", 401
     parser = reqparse.RequestParser()
     parser.add_argument("Email")
     args = parser.parse_args()
     Sql = SqlStrings.SqlSelectUser + "WHERE [Email] = \'" + args["Email"] + "\'"
-    print("execute SQL:\n" + Sql)
+    print("\nexecute SQL:\n" + Sql)
     cursor = connection.execute(Sql)
     for c in cursor:
         user = {
+			"Id": c[0],
 			"Name": c[1],
 			"Email": c[2],
             "Role": c[3]
@@ -66,16 +64,15 @@ def get_user():
     return jsonify("User with Email " + args["Email"] + " does not exist!"), 404
 
 
-# GET 127.0.0.1:5000/Admin/GetUse
+# GET /Admin/GetUsers
 @app.route("/Admin/GetUsers", methods=['GET'])
 def get_users():
-    if(Security.currentUser != "admin@ordering.com"):
-        return "Permission denied", 401
     users = []
-    print("execute SQL:\n" + SqlStrings.SqlSelectUser)
+    print("\nexecute SQL:\n" + SqlStrings.SqlSelectUser)
     cursor = connection.execute(SqlStrings.SqlSelectUser)
     for c in cursor:
         user = {
+			"Id": c[0],
 			"Name": c[1],
 			"Email": c[2],
             "Role": c[3]
@@ -84,7 +81,7 @@ def get_users():
     return jsonify(users), 200
 
 
-# POST 127.0.0.1:5000/User/CreateUser
+# POST /User/CreateUser
 @app.route("/User/CreateUser", methods=['POST'])
 def create_user():
     parser = reqparse.RequestParser()
@@ -94,37 +91,77 @@ def create_user():
     if not re.match(r"[^@]+@[^@]+\.[^@]+", user["Email"]):
         return "Invalid Email!", 400
     Sql = SqlStrings.SqlInsertUser + "(\'" + user["Name"] + "\', \'" + user["Email"] + "\', 1)"
-    print("execute SQL:\n" + Sql)
-    connection.execute(Sql);
+    print("\nexecute SQL:\n" + Sql)
+    connection.execute(Sql)
     return jsonify(user), 201
 
-# GET 127.0.0.1:5000/User/GetCurrentUser
-@app.route("/User/GetCurrentUser", methods=['GET'])
-def get_currentuser():
-    if Security.currentUser != None:
-        Sql = SqlStrings.SqlSelectUser + "WHERE Email = " + "\'"+ Security.currentUser +"\'"
-        print("execute SQL:\n" +Sql)
-        cursor = connection.execute(Sql);
-        for c in cursor:
-            user = {
-                "Name": c[1],
-                "Email": c[2]
-                }
-        return jsonify(user), 200
-    return jsonify("user not found"), 404
+# POST /User/AddAddress
+@app.route("/User/AddAddress", methods=['POST'])
+def add_address():
+    parser = reqparse.RequestParser()
+    parser.add_argument("CustomerId")
+    parser.add_argument("DeliverTo")
+    parser.add_argument("Phone")
+    parser.add_argument("Zip")
+    parser.add_argument("City")
+    parser.add_argument("TheRest")
+    args = parser.parse_args()
+    Sql = SqlStrings.SqlAddAddress + "(" + args["CustomerId"] + ", \'" + args["DeliverTo"] + "\', \'" + args["Phone"] + "\', \'" + args["Zip"] + "\', \'" + args["City"] + "\', \'" + args["TheRest"] + "\')"
+    print("\nexecute SQL:\n" + Sql)
+    connection.execute(Sql)
+    return jsonify(args), 201
+
+# POST /User/GetAddresses
+@app.route("/User/GetAddresses", methods=['POST'])
+def get_addresses():
+    addresses = []
+    parser = reqparse.RequestParser()
+    parser.add_argument("UserId")
+    args = parser.parse_args()
+    Sql = SqlStrings.SqlGetAddresses + "WHERE [CustomerID] = " + args["UserId"]
+    print("\nexecute SQL:\n" + Sql)
+    cursor = connection.execute(Sql)
+    for c in cursor:
+        address = {
+            "Id" : c[0],
+            "CustomerId": c[1],
+            "DeliverTo": c[2],
+            "Phone": c[3],
+            "Zip": c[4],
+            "City": c[5],
+            "TheRest": c[6]
+            }
+        addresses.append(address)
+    return jsonify(addresses), 200
+
+
+
+# GET /User/GetCurrentUser
+#@app.route("/User/GetCurrentUser", methods=['GET'])
+#def get_currentuser():
+#    if Security.currentUser != None:
+#        Sql = SqlStrings.SqlSelectUser + "WHERE Email = " + "\'"+
+#        Security.currentUser.Email +"\'"
+#        print("execute SQL:\n" +Sql)
+#        cursor = connection.execute(Sql);
+#        for c in cursor:
+#            user = {
+#                "Name": c[1],
+#                "Email": c[2]
+#                }
+#        return jsonify(user), 200
+#    return jsonify("user not found"), 404
     
 
-# POST 127.0.0.1:5000/Admin/CleanDB
+# POST /Admin/CleanDB
 @app.route("/Admin/CleanDB", methods=['POST'])
 def clean_db():
-    if(Security.currentUser != "admin@ordering.com"):
-        return "Permission denied", 401
-    print("execute SQL:\n" + SqlStrings.SqlCleanUsers)
-    connection.execute(SqlStrings.SqlCleanUsers);
+    print("\nexecute SQL:\n" + SqlStrings.SqlCleanUsers)
+    connection.execute(SqlStrings.SqlCleanUsers)
     return jsonify("DB Cleaned"), 200
 
 
-# POST 127.0.0.1:5000/Order/Catalog
+# POST /Order/Catalog
 @app.route("/Order/Catalog", methods=['POST'])
 def get_catalog():
     parser = reqparse.RequestParser()
@@ -135,11 +172,11 @@ def get_catalog():
     SqlCatalog = SqlStrings.SqlGetCatalog + "WHERE Category = \'\'"
     if args["Categories"] != None:
         for c in args["Categories"]:
-            SqlCatalog += " or Category = \'"+ c +"\'"
-    print("execute SQL:\n" + SqlCatalog)
+            SqlCatalog += " or Category = \'" + c + "\'"
+    print("\nexecute SQL:\n" + SqlCatalog)
     cursor = connection.execute(SqlCatalog)
     for c in cursor:
-        product ={
+        product = {
             "Id": c[0],
             "Name": c[1],
             "Category": c[2],
@@ -149,7 +186,7 @@ def get_catalog():
         products.append(product)
     return jsonify(products), 200
 
-# POST 127.0.0.1:5000/Ping
+# POST /Ping
 @app.route("/Ping", methods=['POST'])
 def ping():
     return jsonify("pong"), 200

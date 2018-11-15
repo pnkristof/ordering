@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Address.cs" />
     <Compile Include="ButtonProductPair.cs" />
     <Compile Include="Cart.cs" />
     <Compile Include="Config.cs" />

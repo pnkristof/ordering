@@ -22,8 +22,6 @@ namespace OrderingApp
     {
         static Home home = new Home();
         static Menu menu = new Menu();
-        public static CartTotal cartTotal = new CartTotal();
-        static HomeLoggedIn homeLoggedIn = new HomeLoggedIn();
 
         public static Label Result = new Label
         {
@@ -33,13 +31,14 @@ namespace OrderingApp
             FontSize = 10,
             Margin = new Thickness(0, 0, 0, 0)
         };
+        
 
-        List<Task> tasks = new List<Task>();
         public MainWindow()
         {
             InitializeComponent();
-            
+            grd_Status.Children.Add(Result);
             Result.Content = "Main window initialized";
+            
 
         }
 
@@ -72,7 +71,7 @@ namespace OrderingApp
                     if (!Security.loggedIn)
                         MainFrame.Content = home;
                     else
-                        MainFrame.Content = homeLoggedIn;
+                        MainFrame.Content = new HomeLoggedIn();
                     MainWindow.Result.Content = "Clicked on Home";
                     break;
                 case 1:

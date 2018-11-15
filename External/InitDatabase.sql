@@ -2,8 +2,9 @@
 USE Ordering
 
 DROP TABLE IF EXISTS Orders
-DROP TABLE IF EXISTS Users
 DROP TABLE IF EXISTS Products
+DROP TABLE IF EXISTS Addresses
+DROP TABLE IF EXISTS Users
 DROP TABLE IF EXISTS Roles
 
 
@@ -15,6 +16,7 @@ CREATE TABLE Roles (
     ID int IDENTITY(0,1) PRIMARY KEY,
     RoleName nvarchar(100)
 );
+
 
 CREATE TABLE Users (
     ID int IDENTITY(1,1) PRIMARY KEY,
@@ -34,14 +36,28 @@ CREATE TABLE Products (
 );
 
 
+CREATE TABLE Addresses(
+	ID int IDENTITY(1,1) PRIMARY KEY,
+	CustomerID int,
+	DeliverTo nvarchar(300),
+	Phone nvarchar(30),
+	ZIP int,
+	City nvarchar(200),
+	TheRestOfIt nvarchar(500)
+	FOREIGN KEY (CustomerID) REFERENCES Users(ID)
+);
+
 
 CREATE TABLE Orders (
     ID int IDENTITY(1,1) PRIMARY KEY,
     CustomerID int,
-    CustomerAddress nvarchar(200),
-	ProductSet nvarchar(2000)
-	FOREIGN KEY (CustomerID) REFERENCES Users(ID)
+    CustomerAddressID int,
+	ProductSet nvarchar(2000),
+	OrderDate date
+	FOREIGN KEY (CustomerID) REFERENCES Users(ID),
+	FOREIGN KEY (CustomerAddressID) REFERENCES Addresses(ID)
 );
+
 
 INSERT INTO Roles (RoleName)
 VALUES ('administrator');
@@ -50,6 +66,11 @@ VALUES ('customer');
 
 INSERT INTO Users (Name, Email, Permission)
 VALUES ('John Smith', 'admin@ordering.com', 0);
+INSERT INTO Users (Name, Email, Permission)
+VALUES ('Hans Jürgen', 'hjurgen@gmail.com', 0);
+
+INSERT INTO Addresses (CustomerID, DeliverTo, Phone, ZIP, City, TheRestOfIt)
+VALUES ('2', 'H Jürgen', '+36 20 123 4567', 4028, 'Debrecen', 'Kassai út 26., IK');
 
 INSERT INTO Products (Name, Category, Price, ImgUrl)
 VALUES ('Medium Fries', 'Side', 150, 'C:\Users\Pászti-Nagy Kristóf\Documents\Git\OrderService\External\Images\fries.png');

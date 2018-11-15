@@ -9,18 +9,19 @@ using System.Web.Script.Serialization;
 
 namespace OrderingAppLogic
 {
-    
-
-    public class Security
+    public class Address
     {
-        public static User CurrentUser = new User("","");
+        public int Id { get; set; }
+        public int CustomerId { get; set; }
+        public string DeliverTo { get; set; }
+        public string Phone { get; set; }
+        public string Zip { get; set; }
+        public string City { get; set; }
+        public string TheRest { get; set; }
         
-        public static bool loggedIn = false;
-
-
-        public static bool Register(string name, string email)
+        public static bool AddAddress(Address address)
         {
-            var user = new JavaScriptSerializer().Serialize(new User(name, email));
+            var body = new JavaScriptSerializer().Serialize(address);
 
             HttpResponseMessage response = null;
             try
@@ -28,11 +29,12 @@ namespace OrderingAppLogic
                 using (var client = new HttpClient())
                 {
                     response = client.PostAsync(
-                     Config.host + Config.port + "/User/CreateUser",
-                      new StringContent(user, Encoding.UTF8, "application/json")).Result;
+                     Config.host + Config.port + "/User/AddAddress",
+                      new StringContent(body, Encoding.UTF8, "application/json")).Result;
                 }
                 if (response.StatusCode == System.Net.HttpStatusCode.Created)
                 {
+                    string json = response.Content.ReadAsStringAsync().Result;
                     return true;
                 }
 
@@ -44,10 +46,13 @@ namespace OrderingAppLogic
             return false;
         }
 
-        public static bool Login(string email, string password)
+        public static IEnumerable<Address> GetAddresses(int userId)
         {
-            var DTO =  new { Email = email, Password = password };
-            var user = new JavaScriptSerializer().Serialize(DTO);
+            var body = new
+            {
+                UserId = userId
+            };
+            var UserId = new JavaScriptSerializer().Serialize(body);
 
             HttpResponseMessage response = null;
             try
@@ -55,15 +60,13 @@ namespace OrderingAppLogic
                 using (var client = new HttpClient())
                 {
                     response = client.PostAsync(
-                     Config.host + Config.port + "/Security/Login",
-                      new StringContent(user, Encoding.UTF8, "application/json")).Result;
+                     Config.host + Config.port + "/User/GetAddresses",
+                      new StringContent(UserId, Encoding.UTF8, "application/json")).Result;
                 }
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    loggedIn = true;
                     string json = response.Content.ReadAsStringAsync().Result;
-                    CurrentUser = JsonConvert.DeserializeObject<User>(json);
-                    return true;
+                    return JsonConvert.DeserializeObject<List<Address>>(json);
                 }
 
             }
@@ -71,9 +74,7 @@ namespace OrderingAppLogic
             {
 
             }
-            return false;
+            return new List<Address>();
         }
     }
-
-
 }
